@@ -1,4 +1,6 @@
 require('dotenv').config();
+var moongose = require('mongoose');
+moongose.connect(process.env.MONGO_URI,{useNewUrlParser:true,useUnifiedTipoloy:true})
 
 
 let Person;
