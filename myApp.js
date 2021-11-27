@@ -1,12 +1,23 @@
 require('dotenv').config();
+const mongoose = require('mongoose');
 var moongose = require('mongoose');
-moongose.connect(process.env.MONGO_URI,{useNewUrlParser:true,useUnifiedTipoloy:true})
+moongose.connect(process.env.MONGO_URI,{useNewUrlParser:true,useUnifiedTipology:true});
+
+const personSchema  = new moongose.Schema({
+  name:{type:String,required:true},
+  age:Number,
+  favoriteFoods:[String]
+});
 
 
-let Person;
+let Person = moongose.model('Person',personSchema);
 
 const createAndSavePerson = (done) => {
-  done(null /*, data*/);
+  let fan = new Person({name:"Fran",age:34,favoriteFoods:["burger"]});
+  fan.save((err,data) =>{
+   if (err)  return console.error(err);
+   done(null,data)
+  })
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
